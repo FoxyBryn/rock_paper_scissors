@@ -6,20 +6,22 @@ function getComputerChoice() {
 
 let playerScore = 0;
 let computerScore = 0;
+let roundCount = 0;
 
-let playerSelection = prompt("Scissors, Paper, Rock?");
-let computerSelection = getComputerChoice();
+function playRound() {
 
-function playRound(playerSelection, computerSelection) {
+    let playerSelection = prompt("Scissors, Paper, Rock?").toUpperCase();
+    let computerSelection = getComputerChoice();
 
-    if (playerSelection.toUpperCase() === computerSelection) {
-        let result = "A tie! Let's play again!"
+    if (playerSelection === computerSelection) {
+        let result = "A tie! Let's try again!"
         result += "\n"
         result += "Your Score: " + playerScore
         result += "\n"
         result += "Computer Score: " + computerScore
         return result;
-    } else if (playerSelection.toUpperCase() === "ROCK" && computerSelection === "PAPER") {
+    } else if (playerSelection === "ROCK" && computerSelection === "PAPER") {
+        roundCount++;
         computerScore++;
         let result = "You lose! Paper beats Rock!"
         result += "\n"
@@ -27,7 +29,8 @@ function playRound(playerSelection, computerSelection) {
         result += "\n"
         result += "Computer Score: " + computerScore
         return result;
-    } else if (playerSelection.toUpperCase() === "ROCK" && computerSelection === "SCISSORS") {
+    } else if (playerSelection === "ROCK" && computerSelection === "SCISSORS") {
+        roundCount++;
         playerScore++;
         let result = "You win! Rock beats Scissors!"
         result += "\n"
@@ -35,7 +38,8 @@ function playRound(playerSelection, computerSelection) {
         result += "\n"
         result += "Computer Score: " + computerScore
         return result;
-    } else if (playerSelection.toUpperCase() === "PAPER" && computerSelection === "SCISSORS") {
+    } else if (playerSelection === "PAPER" && computerSelection === "SCISSORS") {
+        roundCount++;
         computerScore++;
         let result = "You lose! Scissors beats Paper!"
         result += "\n"
@@ -43,7 +47,8 @@ function playRound(playerSelection, computerSelection) {
         result += "\n"
         result += "Computer Score: " + computerScore
         return result;
-    } else if (playerSelection.toUpperCase() === "PAPER" && computerSelection === "ROCK") {
+    } else if (playerSelection === "PAPER" && computerSelection === "ROCK") {
+        roundCount++;
         playerScore++;
         let result = "You win! Paper beats Rock!"
         result += "\n"
@@ -51,7 +56,8 @@ function playRound(playerSelection, computerSelection) {
         result += "\n"
         result += "Computer Score: " + computerScore
         return result;
-    } else if (playerSelection.toUpperCase() === "SCISSORS" && computerSelection === "ROCK") {
+    } else if (playerSelection === "SCISSORS" && computerSelection === "ROCK") {
+        roundCount++;
         computerScore++;
         let result = "You lose! Rock beats Scissors!"
         result += "\n"
@@ -59,7 +65,8 @@ function playRound(playerSelection, computerSelection) {
         result += "\n"
         result += "Computer Score: " + computerScore
         return result;
-    } else if (playerSelection.toUpperCase() === "SCISSORS" && computerSelection === "PAPER") {
+    } else if (playerSelection === "SCISSORS" && computerSelection === "PAPER") {
+        roundCount++;
         playerScore++;
         let result = "You win! Scissors beats Paper!"
         result += "\n"
@@ -78,12 +85,18 @@ function playRound(playerSelection, computerSelection) {
 
 }
 
-
-
-console.log(computerSelection)
-
-function game () {
-    console.log(playRound(playerSelection, computerSelection))
+function game() {
+    console.log(playRound());
+    if (roundCount < 5) {
+        game ();
+    } else if (computerScore > playerScore) {
+        console.log("Sorry you lose!");
+    } else if (computerScore < playerScore){
+        console.log("Yay! You win!");
+    } else {
+        console.log("Oh a tie... Let's play again.")
+    }
 }
 
+console.log("Hi! Let's play Scissors, Paper, Rock. Best of five wins!")
 game();
